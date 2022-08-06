@@ -1,5 +1,5 @@
 # task_helper
-
+total hours 4.0
 A new Flutter project.
 
 ## Getting Started

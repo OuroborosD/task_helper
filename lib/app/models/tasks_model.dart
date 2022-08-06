@@ -67,7 +67,7 @@ class Tasks_items{
 
   @override
  String toString(){// override, para mostrar otodos os dados de forma fácil
-  return 'id: $id, name: $name, data: $date_creation';
+  return 'id: $id, name: $name, data: $date_creation status:$complete ';
  }
 
 }

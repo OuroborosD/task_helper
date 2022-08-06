@@ -1,3 +1,4 @@
+//TODO depois adicionar um campo de data de modificação, para saver se consigo fazer isso num app com dados
 DROP TABLE IF EXISTS task;
 CREATE TABLE task(
 	id INTEGER PRIMARY KEY AUTOINCREMENT,

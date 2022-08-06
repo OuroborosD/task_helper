@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../pages/task_page.dart';
+
 
 class CardAddTitle extends StatelessWidget {
   const CardAddTitle({super.key});
@@ -26,7 +28,9 @@ class CardAddTitle extends StatelessWidget {
             children: [
               SlidableAction(
               padding: EdgeInsets.symmetric(vertical: 10),
-              onPressed: (context){},
+              onPressed: (context){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=> TaskPage()) );
+              },
               backgroundColor: Colors.blue,
               foregroundColor: Colors.white,
               icon: Icons.add,
