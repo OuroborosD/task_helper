@@ -1,3 +1,4 @@
+//==================================Taks title 
 class Tasks{
   Tasks({required this.title, required this.date_creation,this.complete = false});
   int? id;
@@ -30,7 +31,7 @@ class Tasks{
 
 }
 
-
+//============================== Task_items
 
 class Tasks_items{
   Tasks_items({required this.name, required this.date_creation,this.date_completed, this.id_task_item});

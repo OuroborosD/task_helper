@@ -11,7 +11,7 @@ class CardTaskHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('hello ');
+        Navigator.pushNamed(context, '/taskscreen');
       },
       child: Card(
           child: Slidable(
