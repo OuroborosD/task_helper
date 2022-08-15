@@ -5,44 +5,50 @@ import 'package:sqflite/sqflite.dart';
 import 'package:task_helper/app/models/tasks_model.dart';
 
 
-final String  table_name= 'tasks';
-final String  table_name_items= 'tasks_items';
+final String  table_name = 'tasks';
+final String  table_name_items = 'tasks_items';
 
 
 
-class Db_view{
-  static final Db_view _instance =  Db_view.internal();// não precisa entender
-  factory Db_view() => _instance;// não precisa entender
-  Db_view.internal();// não precisa entender
+class Db_helper{
+  static final Db_helper _instance =  Db_helper.internal();// não precisa entender
+  factory Db_helper() => _instance;// não precisa entender
+  Db_helper.internal();// não precisa entender
 
   Database? _db;
 
   Future<Database>get db async{
     if(_db != null){
+      print('db Criado==============');
       return _db!;
     }else{
       _db = await initDb();
+      print('não tem db==============');
       return _db!;
     }
   }
 
   Future<Database> initDb() async{// inicializa o banco de dados
-    final databasePath = await  getDatabasesPath();// pega o caminho onde está feito
+    final databasePath = await getDatabasesPath();// pega o caminho onde está feito
     final path = join(databasePath,'task_app.db');
-
+    print('entrou no path------------------');
     return openDatabase(
       path, version:1,
       onCreate: (Database db, int version) async{
         await db.execute(
            """
-            DROP TABLE IF EXISTS $table_name;
+            
             CREATE TABLE $table_name(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               title TEXT NOT NULL ,
               date_creation TEXT NOT NULL,
               complete INTEGER DEFAULT 0);
-
-            DROP TABLE IF EXISTS $table_name_items;
+              )
+              
+           """);
+          await db.execute(
+           """
+        
             CREATE TABLE $table_name_items(
               id INTEGER PRIMARY KEY AUTOINCREMENT,
               name TEXT NOT NULL,
@@ -51,15 +57,31 @@ class Db_view{
               complete INTEGER DEFAULT 0,
               id_task_item INTEGER NOT NULL,
               FOREIGN KEY (id_task_item) REFERENCES task(id) ON DELETE CASCADE
-              );
-              
-           """
-        );
+
+        )""");
       } );
+  }
+
+  Future db_exist() async{
+    Database dbTask = await db;
+//  List teste = await dbTask.rawQuery("SELECT * FROM sqlite_master ORDER BY name;");
+//     List teste = await dbTask.rawQuery("""
+//   SELECT 
+//     name
+// FROM 
+//     sqlite_schema
+// WHERE 
+//     type ='table' AND 
+//     name NOT LIKE 'sqlite_%';
+
+// """);
+//  print(teste);
+    print(await dbTask.getVersion());
   }
 
   Future<Tasks> insert_task(Tasks todo) async{
     Database dbTodo = await db;
+    print('${db} ================');
     todo.id = await dbTodo.insert(table_name, todo.toMap());
     return todo; 
   }

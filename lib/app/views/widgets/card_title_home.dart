@@ -1,11 +1,15 @@
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 // extern
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:task_helper/app/models/tasks_model.dart';
 
 class CardTaskHome extends StatelessWidget {
-  const CardTaskHome({super.key});
+  CardTaskHome({super.key, this.task});
+  Tasks? task;
+
 
   @override
   Widget build(BuildContext context) {
@@ -25,14 +29,16 @@ class CardTaskHome extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'titulo: asdsad',
+                      '${task!.title}',
+                      overflow: TextOverflow.ellipsis,
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'criada em: 12/08/2022',
+                      DateFormat('dd/MM/yyyy H:m:s E').format(task!.date_creation!),
                       style: TextStyle(fontSize: 10, color: Colors.grey),
                     ),
+
                   ],
                 ),
               ),
@@ -41,10 +47,10 @@ class CardTaskHome extends StatelessWidget {
                 SlidableAction(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   onPressed: (context) {},
-                  backgroundColor: Colors.blue,
+                  backgroundColor: Colors.red,
                   foregroundColor: Colors.white,
-                  icon: Icons.add,
-                  label: "Adicionar",
+                  icon: Icons.delete,
+                  label: "Deletar",
                 ),
               ]))),
     );

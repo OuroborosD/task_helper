@@ -2,6 +2,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:task_helper/app/controller/title_controller.dart';
 
 class TaskPage extends StatefulWidget {
   const TaskPage({super.key});
@@ -11,6 +12,9 @@ class TaskPage extends StatefulWidget {
 }
 
 class _TaskPageState extends State<TaskPage> {
+  TitleAux title = TitleAux();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,7 +26,13 @@ class _TaskPageState extends State<TaskPage> {
         child: Column(
           children: [
             Slidable(
-                child: Container(child: TextField()),
+                child: Container(
+                  child: TextField(
+                    controller: title.title_task,
+                    onEditingComplete: (){
+                      title.generate_title(title.title_task.text);
+                    },
+                  )),
                 endActionPane:
                     ActionPane(motion: const DrawerMotion(), children: [
                   SlidableAction(
